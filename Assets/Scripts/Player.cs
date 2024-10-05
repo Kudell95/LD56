@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -10,6 +11,10 @@ public class Player : MonoBehaviour
 
     private int CurrentMaxHealth;
 
+
+    public List<PlayerAbilitySO> AbilityList = new List<PlayerAbilitySO>();
+
+    public List<PlayerAbilitySO> ItemList = new List<PlayerAbilitySO>();
     public bool Dead;
 
     private void Awake()

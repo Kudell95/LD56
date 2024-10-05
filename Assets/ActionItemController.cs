@@ -13,19 +13,23 @@ public class ActionItemController : MonoBehaviour
     public TextMeshProUGUI EffectText;
     public Image ActionImage;
     public Button Button;
+    private PlayerAbilitySO m_Ability;
 
 
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Build(PlayerAbilitySO ability)
     {
-        
+        //TODO: store counts of different types of items. and update count if applicable.
+        CountContainer.SetActive(false);
+        TitleText.text = ability.Name;
+        DescriptionText.text = ability.Description;
+        EffectText.text = ability.EffectDescription;
+        ActionImage.sprite = ability.AbilityImage;
+
+        m_Ability = ability;
+        //TODO: hook up button, probably to an event that will fire.
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
 }

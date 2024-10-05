@@ -8,17 +8,8 @@ public class Enums : MonoBehaviour
 	{
 		MainMenu = 1,
 		GameScene = 2,
-		LoadingScene = 3,
 	}
-	
-	// public enum Rarity
-	// {
-	// 	Common,
-	// 	Rare,
-	// 	Epic,
-	// 	Legendary
-	// }
-	
+		
 	
 	public enum AbilityType
 	{
@@ -26,24 +17,9 @@ public class Enums : MonoBehaviour
 		Heal,
 		DefenceBuff,
 		AttackRange,
-		TurnSkip,
-		AttackBuff,
-        HealForRound,
-    }
+		AttackBuff
+    }	
 	
-	public enum BroadAbilityType
-	{
-		Attack,
-		Heal,
-		Buff,
-		Debuff,
-	}
-	
-	public enum AbilityActionType
-	{
-		Place,
-		Discard
-	}
 
 	public enum OpponentDifficulty
 	{

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21c18ff57314d9a4d9a8cbb5f2b75270, type: 3}
+  m_Name: Slash
+  m_EditorClassIdentifier: 
+  Name: Slash
+  Description: 'Deals a bunch of damage
+
+'
+  EffectDescription: 4-10 Damage
+  UseRange: 1
+  Amount: 0
+  MinAmount: 5
+  MaxAmount: 10
+  AbilityType: 0
+  AbilityImage: {fileID: 8744866459378051926, guid: ce53019a5aa51954aae7b36e697e866c, type: 3}
