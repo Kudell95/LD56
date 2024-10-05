@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +29,13 @@ public class NotificationMessage : MonoBehaviour
     public void Start()
     {
         timer = 0;
+        float y =  transform.localScale.y;
+
+        transform.DOScaleY(0,0).OnComplete(()=>{
+            transform.DOScaleY(y,0.3f);
+        });
+
+
     }
 
     private void Update()
@@ -51,28 +59,22 @@ public class NotificationMessage : MonoBehaviour
     public void UrgentMessage(string Message)
     {
         NotificationText.text = Message;
-        NotificationImage.sprite = UrgentExclamationMark;
     }
 
     public void NormalMessage(string Message)
     {
         NotificationText.text = Message;
-        NotificationImage.sprite = NormalExclamationMark;
     }
 
 
     public void HideMessage()
     {
-        NotificationText.gameObject.SetActive(false);
-        NotificationImage.gameObject.SetActive(false);
-        DismissButton.SetActive(false);
-        GetComponent<Image>().color = new Color(0, 0, 0, 0);
-
-        LeanTween.size(GetComponent<RectTransform>(), new Vector2(775, 0), 0.2f).setOnComplete(() =>
-        {
-            LeanTween.cancel(this.gameObject);
+        transform.DOScaleY(0,0.3f).OnComplete(()=>{
+            NotificationText.gameObject.SetActive(false);
+            // NotificationImage.gameObject.SetActive(false);
             Destroy(this.gameObject);
         });
+        
 
 
     }

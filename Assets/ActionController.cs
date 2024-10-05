@@ -12,6 +12,17 @@ public class ActionController : MonoBehaviour
 
     private bool fading;
 
+    public GameObject ActionItemCardPrefab;
+
+    //could put shop here?
+    public WindowTypes CurrentWindow = WindowTypes.Ability;
+
+    public enum WindowTypes {
+        Ability,
+        Item
+    }
+
+
     private void Awake() {
         m_CG = Panel.GetComponent<CanvasGroup>();
         ForceClosed();
@@ -20,12 +31,32 @@ public class ActionController : MonoBehaviour
     public void ClearActionItems()
     {
         foreach(Transform child in ActionItemParent){
-            DestroyImmediate(child.gameObject);
+            Destroy(child.gameObject);
         }
     }
 
-    public void PopulateActionItems()
+    public void PopulateAbilities()
     {
+        ClearActionItems();
+        CurrentWindow = WindowTypes.Ability;
+        foreach(PlayerAbilitySO ability in GameManager.Instance.PlayerObject.AbilityList)
+        {
+            SpawnAndBuildAction(ability);
+        }
+    }
+
+
+    public void SpawnAndBuildAction(PlayerAbilitySO ability)
+    {
+        GameObject spawnedCard = Instantiate(ActionItemCardPrefab, ActionItemParent);
+
+        ActionItemController card = spawnedCard.GetComponent<ActionItemController>();
+        card.Build(ability);
+    }
+
+    public void PopulateItems()
+    {
+        CurrentWindow = WindowTypes.Item;
 
     }
 
