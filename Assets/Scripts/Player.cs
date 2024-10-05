@@ -1,5 +1,8 @@
 
+using System;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
@@ -18,6 +21,19 @@ public class Player : MonoBehaviour
 
     private void OnTurnStarted(Enums.TurnStates turnType)
     {
+        if(turnType != Enums.TurnStates.InitialTurn && turnType != Enums.TurnStates.PlayerTurn)
+            return;
+
+
+        switch(turnType)
+        {
+            case Enums.TurnStates.InitialTurn:
+            {
+                InitPlayer();
+                return;
+            }
+        }
+
     }
 
     private void OnTurnEnded(Enums.TurnStates turnType)
@@ -31,6 +47,18 @@ public class Player : MonoBehaviour
         CurrentHealth = GameManager.Config.StartingPlayerHealth;
         CurrentMaxHealth = GameManager.Config.StartingPlayerHealth;
         Dead = false;
+        OnSpawn(()=>{
+            GameManager.Instance.TurnManagerObject.EndTurn();
+        });
+    }
+
+
+    public void OnSpawn(TweenCallback oncomplete)
+    {
+        float startingScaleY = transform.localScale.y;
+        transform.DOScaleY(0,0f).OnComplete(()=>{
+            transform.DOScaleY(startingScaleY,1f).SetEase(Ease.OutBack).OnComplete(oncomplete);
+        });
     }
 
 

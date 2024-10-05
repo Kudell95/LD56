@@ -29,7 +29,7 @@ public class TurnManager : MonoBehaviour
             nextTurn = GetNextTurn(CurrentTurnState);
         
         OnTurnEnd?.Invoke(CurrentTurnState);
-        StartTurn(nextTurn);
+        StartTurn(nextTurn, CurrentTurnState != Enums.TurnStates.InitialTurn);
     }
 
     public Enums.TurnStates GetNextTurn(Enums.TurnStates currentTurn)
@@ -49,6 +49,9 @@ public class TurnManager : MonoBehaviour
             case Enums.TurnStates.OpponentSpawnTurn:
                 return Enums.TurnStates.PlayerTurn;
 
+            case Enums.TurnStates.InitialTurn:
+                return Enums.TurnStates.OpponentSpawnTurn;
+
             default:
                 return Enums.TurnStates.PlayerTurn;            
         }
@@ -63,9 +66,11 @@ public class TurnManager : MonoBehaviour
 			case Enums.TurnStates.PlayerTurn:
 				return "Player's Turn";
 			case Enums.TurnStates.OpponentTurn:
-				return "Enemies Turn";
+				return "Opponent's Turn";
+            case Enums.TurnStates.OpponentDeadTurn:
+                return "Bug destroyed. Hunting for next opponent...";
 			case Enums.TurnStates.OpponentSpawnTurn:
-				return "Enemy bug destroyed. Hunting for next opponent...";
+				return "Prey found!";
 			default:
 				return "";
 		}
