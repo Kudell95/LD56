@@ -7234,7 +7234,6 @@
         </member>
         <member name="M:Sirenix.OdinInspector.Editor.Internal.OdinInternalEditorFields.PolymorphicObjectField(UnityEngine.Rect,System.Int32,System.Boolean,UnityEngine.GUIContent,System.Object,System.Type,System.Type,System.Boolean,System.Boolean,Sirenix.OdinInspector.Editor.InspectorProperty,System.Boolean,System.Boolean,System.String)">
             <summary>
-            TODO
             </summary>
             <param name="position"></param>
             <param name="id"></param>
@@ -7254,7 +7253,6 @@
         </member>
         <member name="M:Sirenix.OdinInspector.Editor.Internal.OdinInternalEditorFields.PolymorphicObjectField(System.Object,System.Int32,UnityEngine.Rect,System.Int32,System.Boolean,UnityEngine.GUIContent,System.Object,System.Type,System.Type,System.Boolean,System.Boolean,Sirenix.OdinInspector.Editor.InspectorProperty,System.Boolean,System.Boolean,System.String)">
             <summary>
-            TODO
             </summary>
             <param name="position"></param>
             <param name="id"></param>
