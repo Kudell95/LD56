@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,11 +19,24 @@ public class GameManager : MonoBehaviour
     public ConfigSO ConfigObject;
 
     public TurnManager TurnManagerObject;
+    public Player PlayerObject;
+
+
+    public Enums.InsectSpawnTypes GameSpawnType = Enums.InsectSpawnTypes.Random;
+
+
+    public static void EndTurn(){
+        Instance.TurnManagerObject.EndTurn();
+    }
+
+    public static void StartTurn(Enums.TurnStates turn){
+        Instance.TurnManagerObject.StartTurn(turn);
+    }
 
 
     public void Start()
     {
-        
+        TurnManagerObject.StartTurn(Enums.TurnStates.InitialTurn, false);
     }
 
 

@@ -69,6 +69,11 @@ public class Enums : MonoBehaviour
 		Buff
 	}
 
+	public enum InsectSpawnTypes {
+		Sequential,
+		Random
+	}
+
 	
 	public enum TurnStates
 	{

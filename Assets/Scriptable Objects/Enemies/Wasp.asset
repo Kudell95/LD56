@@ -17,6 +17,7 @@ MonoBehaviour:
   Health: 15
   Armour: 2
   Difficulty: 2
+  CharacterSprite: {fileID: 5742915519180568612, guid: c6564027245659848870be9d653fab71, type: 3}
   AbilityList:
     keyData:
     - {fileID: 11400000, guid: 09bf3521b2d2753418cafa933931a1e2, type: 2}

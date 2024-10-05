@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b02237641d27f544982ac88a5003bf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugHelperPrefab: {fileID: 0}
+  DebugHelperPrefab: {fileID: 2607061601442371681, guid: 4c6e7d4e96117074799555d03a0c9a5a, type: 3}
