@@ -207,6 +207,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5440575209265766860, guid: 5eb05a6b6859d3747b21c176834e8fa6, type: 3}
+      propertyPath: m_SortingOrder
+      value: 32767
+      objectReference: {fileID: 0}
+    - target: {fileID: 5440575209265766860, guid: 5eb05a6b6859d3747b21c176834e8fa6, type: 3}
       propertyPath: m_VertexColorAlwaysGammaSpace
       value: 1
       objectReference: {fileID: 0}
@@ -1384,14 +1388,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4f74ed3b27b9e742995a92aa8a7a090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HeaderField: {fileID: 6440026788373213548}
-  ContentField: {fileID: 6440026788179932895}
-  ImageField: {fileID: 6440026787868634127}
-  layoutElement: {fileID: 6440026788619568474}
-  characterWrapLimit: 80
-  rectTransform: {fileID: 6440026788619568548}
-  OffsetX: 0
-  OffsetY: 75
 --- !u!222 &6440026788619568478
 CanvasRenderer:
   m_ObjectHideFlags: 0

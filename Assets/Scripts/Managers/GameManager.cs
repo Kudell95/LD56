@@ -36,6 +36,9 @@ public class GameManager : MonoBehaviour
     public Sprite DefaultModifierIcon;
     public static bool ItemUsedThisRound = false;
 
+
+    public DeathScreen DeathUI;
+
     public List<EnemySO> LinearEnemySequence = new List<EnemySO>();
 
     public bool LastLinearEnemy {get{

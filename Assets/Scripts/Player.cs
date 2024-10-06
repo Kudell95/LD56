@@ -338,6 +338,7 @@ public class Player : MonoBehaviour
 			transform.DOScaleX(0,0.2f).OnComplete(()=>
 			{
                 //show death screen...
+                GameManager.Instance.DeathUI.Show();
 			});
 		});		
     }
