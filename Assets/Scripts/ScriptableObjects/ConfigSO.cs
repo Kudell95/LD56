@@ -4,7 +4,7 @@ using UnityEngine;
 public class ConfigSO : ScriptableObject
 {
     [Header("Player Configs")]
-    public int StartingPlayerHealth = 20;
+    public int StartingPlayerHealth = 50;
 
     
 

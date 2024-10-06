@@ -19,6 +19,12 @@ public class Enums : MonoBehaviour
 		AttackRange,
 		AttackBuff
     }	
+
+	public enum ActionTypes
+	{
+		Ability,
+		Item
+	}
 	
 
 	public enum OpponentDifficulty
@@ -27,6 +33,15 @@ public class Enums : MonoBehaviour
 		Fighter,
 		Champion,
 		Boss
+	}
+
+	public enum ModifierTypes
+	{
+		DefenceBoost,
+		AttackBoost,
+		SlashPoisonDamage,
+		ChompPoisonDamage,
+		SpikePoisonDamage,		
 	}
 
 	public enum OpponentAbilityType // WIP
