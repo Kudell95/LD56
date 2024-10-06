@@ -21,5 +21,6 @@ MonoBehaviour:
   Amount: 0
   MinAmount: 5
   MaxAmount: 10
+  SingleTurnEffect: 0
   AbilityType: 0
   AbilityImage: {fileID: 8744866459378051926, guid: ce53019a5aa51954aae7b36e697e866c, type: 3}

@@ -21,7 +21,18 @@ public class PlayerAbilitySO : ScriptableObject
     [ShowIf("UseRange")]
     public int MaxAmount;
 
+    [Tooltip("Effect lasts for a single fight.")]
+    public bool SingleFightEffect;
+
+
+    // public bool HasDuration;
+
+    public Enums.ActionTypes ActionType;
+
     public Enums.AbilityType AbilityType;
     public Sprite AbilityImage;
+
+
+    public Sprite ModifierImage;
 
 }

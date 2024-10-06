@@ -16,6 +16,8 @@ MonoBehaviour:
     keyData:
     - {fileID: 11400000, guid: f92e8c7281259d443a438f85003046b1, type: 2}
     - {fileID: 11400000, guid: a859379451ea1f2469fd91083e1406b6, type: 2}
+    - {fileID: 11400000, guid: 1496819c7d5c6d44fba0e71426df7606, type: 2}
     valueData:
+    - 50
     - 50
     - 50

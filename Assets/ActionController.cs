@@ -1,4 +1,5 @@
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 public class ActionController : MonoBehaviour
@@ -17,6 +18,9 @@ public class ActionController : MonoBehaviour
     //could put shop here?
     public WindowTypes CurrentWindow = WindowTypes.Ability;
 
+    public TextMeshProUGUI PanelTitleText;
+
+
     public enum WindowTypes {
         Ability,
         Item
@@ -26,6 +30,8 @@ public class ActionController : MonoBehaviour
     private void Awake() {
         m_CG = Panel.GetComponent<CanvasGroup>();
         ForceClosed();
+
+        Player.OnUseAbility += OnPlayerAbilityUsed;
     }
 
     public void ClearActionItems()
@@ -37,6 +43,7 @@ public class ActionController : MonoBehaviour
 
     public void PopulateAbilities()
     {
+        PanelTitleText.text = "Select Ability";
         ClearActionItems();
         CurrentWindow = WindowTypes.Ability;
         foreach(PlayerAbilitySO ability in GameManager.Instance.PlayerObject.AbilityList)
@@ -56,10 +63,22 @@ public class ActionController : MonoBehaviour
 
     public void PopulateItems()
     {
+        PanelTitleText.text = "Select Item";
         CurrentWindow = WindowTypes.Item;
+        ClearActionItems();
 
+        foreach(PlayerAbilitySO item in GameManager.Instance.PlayerObject.ItemList)
+        {
+            SpawnAndBuildAction(item);
+        }
     }
 
+
+    public void OnPlayerAbilityUsed(PlayerAbilitySO ability)
+    {
+        ForceClosed();
+        //TODO: maybe set buttons to disabled here?
+    }
 
     public void ShowPanel()
     {
@@ -98,6 +117,9 @@ public class ActionController : MonoBehaviour
     }
 
 
+
+
+
     public void ForceClosed(){
         ClearActionItems();
         m_CG.alpha = 0;
@@ -112,6 +134,11 @@ public class ActionController : MonoBehaviour
             HidePanel();
         else
             ShowPanel();
+    }
+
+
+    private void OnDestroy() {
+        Player.OnUseAbility -= OnPlayerAbilityUsed;
     }
     
 
