@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: Mosquito
   m_EditorClassIdentifier: 
   Name: Mosquito
-  description: An aggressive wasp. Careful, the stinger hurts!
-  Health: 15
-  Armour: 2
-  Difficulty: 2
-  Boss: 0
+  description: A pesky blood sucker. Bzzzzzz
+  Health: 10
   CharacterSprite: {fileID: -7335345776834287784, guid: a56a606ecb4f14f409238ee291b16121, type: 3}
   CharacterAnimator: {fileID: 4432037899000338271, guid: f0c214f5598796a4c8142180b273a249, type: 3}
   AbilityList:
     keyData:
-    - {fileID: 11400000, guid: 09bf3521b2d2753418cafa933931a1e2, type: 2}
+    - {fileID: 11400000, guid: 9ac89d77b9ee7194685c0501cb7d5385, type: 2}
+    - {fileID: 11400000, guid: 77c6cc055aebc8b478d2d218be768464, type: 2}
+    - {fileID: 11400000, guid: eb8130e94dfd15448ad3fac34c1aadeb, type: 2}
     valueData:
+    - 2
     - 5
+    - 10

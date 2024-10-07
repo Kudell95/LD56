@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57fc24834fdc8a246ab2a93cb7cdc3a9, type: 3}
-  m_Name: Wasp
+  m_Name: Lizard
   m_EditorClassIdentifier: 
-  Name: Wasp
-  description: An aggressive wasp. Careful, the stinger hurts!
-  Health: 15
-  CharacterSprite: {fileID: 5742915519180568612, guid: c6564027245659848870be9d653fab71, type: 3}
-  CharacterAnimator: {fileID: -2520555133153097929, guid: 9ea961cc52ea86a4caed1d0181371957, type: 3}
+  Name: Lizard
+  description: An armoured Cricket. Can take a hit
+  Health: 25
+  CharacterSprite: {fileID: -6383312658857005041, guid: 7df5be5374a0816409ad420e647d53f8, type: 3}
+  CharacterAnimator: {fileID: 4340317959603307653, guid: ae351693acfad7a4fb81ea144514767d, type: 3}
   AbilityList:
     keyData:
-    - {fileID: 11400000, guid: 09bf3521b2d2753418cafa933931a1e2, type: 2}
-    - {fileID: 11400000, guid: 706d18ff581646f44b450fdb56e405f2, type: 2}
     - {fileID: 11400000, guid: 9ac89d77b9ee7194685c0501cb7d5385, type: 2}
+    - {fileID: 11400000, guid: 706d18ff581646f44b450fdb56e405f2, type: 2}
+    - {fileID: 11400000, guid: 09bf3521b2d2753418cafa933931a1e2, type: 2}
     valueData:
-    - 2
-    - 10
     - 5
+    - 10
+    - 2

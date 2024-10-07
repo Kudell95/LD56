@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8adfa1b3f632f33498ac897c02dda161, type: 3}
-  m_Name: Slash
+  m_Name: Attack 10
   m_EditorClassIdentifier: 
   AbilityCategory: 0
   AbilityType: 0
-  value: 5
+  value: 10
   duration: 0
