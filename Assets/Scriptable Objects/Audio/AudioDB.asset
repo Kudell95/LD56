@@ -13,5 +13,27 @@ MonoBehaviour:
   m_Name: AudioDB
   m_EditorClassIdentifier: 
   AudioClips:
-    keyData: []
-    valueData: []
+    keyData:
+    - cancel
+    - select
+    - enemy death
+    - player death
+    - take damage
+    - buff
+    - use item
+    - bgm01
+    - bgm02
+    - bgm03
+    - attack
+    valueData:
+    - {fileID: 8300000, guid: a866d6d801b512f4e8e1bece93c79b9a, type: 3}
+    - {fileID: 8300000, guid: 88ce0bb1daacbad47b324ff0abd0d4db, type: 3}
+    - {fileID: 8300000, guid: 42386aec0213ead47ab78c0acf7cd9a1, type: 3}
+    - {fileID: 8300000, guid: 7c15c3e76e04fbf4b868f9c0880b24f0, type: 3}
+    - {fileID: 8300000, guid: 0aceda06a151463479911b0c2febd985, type: 3}
+    - {fileID: 8300000, guid: ff76e8f788c259340bdeeb539c2fb9c3, type: 3}
+    - {fileID: 8300000, guid: 030e622c0562f0f44b7df48a24c8dc3b, type: 3}
+    - {fileID: 8300000, guid: 874eb3f4c352b5c46861bfb4e9013150, type: 3}
+    - {fileID: 8300000, guid: 3b85a41901175024cac35cb35f80b864, type: 3}
+    - {fileID: 8300000, guid: 860666a18162e1142a11767a8e9167a0, type: 3}
+    - {fileID: 8300000, guid: 1ae4e7e4c0220064fbfea60c8a0cba8d, type: 3}
