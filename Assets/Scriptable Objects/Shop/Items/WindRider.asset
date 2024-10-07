@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Wind Rider
   Description: Increase movement speed and evasion
-  EffectDescription: Increases Chance to Dodge by 4%
+  EffectDescription: Increases Chance to Dodge by 8%
   UseRange: 0
-  Amount: 4
+  Amount: 8
   MinAmount: 0
   MaxAmount: 0
   ShopItemType: 1

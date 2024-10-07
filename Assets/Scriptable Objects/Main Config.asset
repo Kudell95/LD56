@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartingPlayerHealth: 50
   MaxDodgePercentage: 0.3
-  DifficultyIncrement: 0.4
+  DifficultyIncrement: 0.2
   MaxDifficultyModifier: 6

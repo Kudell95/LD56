@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Photosynthesis
   Description: Increase movement speed and evasion
-  EffectDescription: Increases Chance to Dodge by 2%
+  EffectDescription: Increases Chance to Dodge by 4%
   UseRange: 0
-  Amount: 2
+  Amount: 4
   MinAmount: 0
   MaxAmount: 0
   ShopItemType: 1

@@ -185,7 +185,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      branch button border_0: 349879934030704872
+      branch button border_1: -4445479147209551962
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
