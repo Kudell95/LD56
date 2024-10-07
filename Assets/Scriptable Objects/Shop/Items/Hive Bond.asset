@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05af5af15b323da40a76b9f291281eab, type: 3}
-  m_Name: Nature's Blessing
+  m_Name: Hive Bond
   m_EditorClassIdentifier: 
-  Name: Nature's Blessing
-  Description: 'Mother Nature blesses you!
-
-'
+  Name: Hive Bond
+  Description: The Hive Mind knows best!
   EffectDescription: Increases Max Health by 10%
   UseRange: 0
   Amount: 10

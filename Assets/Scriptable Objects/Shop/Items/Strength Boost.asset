@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Strength Boost
   m_EditorClassIdentifier: 
   Name: Strength Boost
-  Description: 'Temporarily increases your Damage
+  Description: 'Temporarily increases your Attack
 
-    Increases damage given for
-    one fight'
+'
+  EffectDescription: Increases damage given by 25%. Lasts for one fight
   UseRange: 0
-  Amount: 1
+  Amount: 25
   MinAmount: 0
   MaxAmount: 0
   ShopItemType: 0

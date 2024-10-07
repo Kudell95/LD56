@@ -10,19 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05af5af15b323da40a76b9f291281eab, type: 3}
-  m_Name: Nature's Blessing
+  m_Name: CrystalCarapace
   m_EditorClassIdentifier: 
-  Name: Nature's Blessing
-  Description: 'Mother Nature blesses you!
+  Name: Crystal Carapace
+  Description: 'Increases your Defense
 
 '
-  EffectDescription: Increases Max Health by 10%
+  EffectDescription: Reduces damage taken by 1%
   UseRange: 0
-  Amount: 10
+  Amount: 1
   MinAmount: 0
   MaxAmount: 0
   ShopItemType: 1
-  ModifierType: 10
-  DisplayImage: {fileID: 2608757896017849856, guid: b1071ee70e80a754dab197bc79f5a0a0, type: 3}
-  ModifierImage: {fileID: 2608757896017849856, guid: b1071ee70e80a754dab197bc79f5a0a0, type: 3}
+  ModifierType: 0
+  DisplayImage: {fileID: 3897343060992098264, guid: da7df8e5f2840304e80e0315ecc62017, type: 3}
+  ModifierImage: {fileID: 3897343060992098264, guid: da7df8e5f2840304e80e0315ecc62017, type: 3}
   SingleUse: 0

@@ -10,19 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05af5af15b323da40a76b9f291281eab, type: 3}
-  m_Name: Nature's Blessing
+  m_Name: Regeneration
   m_EditorClassIdentifier: 
-  Name: Nature's Blessing
-  Description: 'Mother Nature blesses you!
-
-'
-  EffectDescription: Increases Max Health by 10%
+  Name: Regeneration
+  Description: Heals a small amount after each fight
+  EffectDescription: Increases Health by 2%
   UseRange: 0
-  Amount: 10
+  Amount: 2
   MinAmount: 0
   MaxAmount: 0
   ShopItemType: 1
-  ModifierType: 10
-  DisplayImage: {fileID: 2608757896017849856, guid: b1071ee70e80a754dab197bc79f5a0a0, type: 3}
-  ModifierImage: {fileID: 2608757896017849856, guid: b1071ee70e80a754dab197bc79f5a0a0, type: 3}
+  ModifierType: 11
+  DisplayImage: {fileID: -1442904951917675542, guid: 78aafabd02474dc4297277179b6a1e61, type: 3}
+  ModifierImage: {fileID: -1442904951917675542, guid: 78aafabd02474dc4297277179b6a1e61, type: 3}
   SingleUse: 0

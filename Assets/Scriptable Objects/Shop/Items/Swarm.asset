@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: Swarm
   m_EditorClassIdentifier: 
   Name: Swarm
-  Description: 'Increases damage
+  Description: 'Increases your Attack
 
-    Deals +1 Damage'
+'
+  EffectDescription: Adds 2% to you base damage
   UseRange: 0
-  Amount: 1
+  Amount: 2
   MinAmount: 0
   MaxAmount: 0
   ShopItemType: 1
-  ModifierType: 0
+  ModifierType: 1
   DisplayImage: {fileID: 4049257448754161217, guid: c122e63e47251a04cba0e02456d8193b, type: 3}
   ModifierImage: {fileID: 4049257448754161217, guid: c122e63e47251a04cba0e02456d8193b, type: 3}
   SingleUse: 0

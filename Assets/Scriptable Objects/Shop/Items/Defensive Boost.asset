@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Defensive Boost
   m_EditorClassIdentifier: 
   Name: Defensive Boost
-  Description: 'Temporarily increases your Defense
+  Description: 'Temporarily Increases your Defense
 
 
-    Reduces damage taken for
-    one fight'
+'
+  EffectDescription: Reduces damage taken by 25%. Lasts for one fight
   UseRange: 0
   Amount: 25
   MinAmount: 0
