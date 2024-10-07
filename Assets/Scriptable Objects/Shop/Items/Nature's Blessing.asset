@@ -16,12 +16,13 @@ MonoBehaviour:
   Description: 'Mother Nature blesses you!
 
     Increase Max Health by 10'
+  EffectDescription: 
   UseRange: 0
   Amount: 10
   MinAmount: 0
   MaxAmount: 0
   ShopItemType: 1
   ModifierType: 0
-  DisplayImage: {fileID: 4049257448754161217, guid: c122e63e47251a04cba0e02456d8193b, type: 3}
+  DisplayImage: {fileID: 2608757896017849856, guid: b1071ee70e80a754dab197bc79f5a0a0, type: 3}
   ModifierImage: {fileID: 4049257448754161217, guid: c122e63e47251a04cba0e02456d8193b, type: 3}
   SingleUse: 1

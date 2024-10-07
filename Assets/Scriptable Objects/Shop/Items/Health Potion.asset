@@ -13,9 +13,8 @@ MonoBehaviour:
   m_Name: Health Potion
   m_EditorClassIdentifier: 
   Name: Health Potion
-  Description: 'Drink to recover some Health
-
-    Heals 50% of Max Health on use'
+  Description: Drink to recover some Health
+  EffectDescription: Heals 50% of Max Health on use
   UseRange: 0
   Amount: 1
   MinAmount: 0
