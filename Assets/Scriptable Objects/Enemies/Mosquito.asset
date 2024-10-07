@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Mosquito
   description: A pesky blood sucker. Bzzzzzz
-  Health: 10
+  Health: 12
   CharacterSprite: {fileID: -7335345776834287784, guid: a56a606ecb4f14f409238ee291b16121, type: 3}
   CharacterAnimator: {fileID: 4432037899000338271, guid: f0c214f5598796a4c8142180b273a249, type: 3}
   AbilityList:

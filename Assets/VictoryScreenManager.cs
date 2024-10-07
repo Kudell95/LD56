@@ -22,6 +22,8 @@ public class VictoryScreenManager : MonoBehaviour
 
     public void Continue(){
         GameManager.Instance.GameSpawnType = Enums.InsectSpawnTypes.Random;
+        SoundManager.Instance?.PlaySound("select");
+        
         LeanTween.delayedCall(1f,()=>{
             GameManager.Instance.PlayerObject.HealToMaxHealth();
             GameManager.EndTurn();
@@ -30,6 +32,8 @@ public class VictoryScreenManager : MonoBehaviour
     }
 
     public void Quit(){
+        SoundManager.Instance?.PlaySound("cancel");
+
         Time.timeScale = 1;
         SceneTransitionManager.Instance.LoadScene(Enums.Scenes.MainMenu);
     }

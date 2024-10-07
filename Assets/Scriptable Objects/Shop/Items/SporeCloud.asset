@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Spore Cloud
   Description: Heals a small amount after each fight
-  EffectDescription: Increases Health by 5%
+  EffectDescription: Heals by 8%
   UseRange: 0
-  Amount: 5
+  Amount: 8
   MinAmount: 0
   MaxAmount: 0
   ShopItemType: 1

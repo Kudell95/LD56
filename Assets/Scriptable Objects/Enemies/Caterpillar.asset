@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Caterpillar
   description: A deadly Caterpillar. Watch out for its horns
-  Health: 20
+  Health: 22
   CharacterSprite: {fileID: -6222823308257438354, guid: 9baec140c6aab7a4db6eaef338d32599, type: 3}
   CharacterAnimator: {fileID: -3560667503705963590, guid: 7bae18819f10cab4d9d2bd0d08ea1212, type: 3}
   AbilityList:

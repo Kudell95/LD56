@@ -57,6 +57,11 @@ public class SoundManager : MonoBehaviour
 		
 		PlaySound(clip);
 	}
+
+	public void ToggleMuteMusic(bool val)
+	{
+			MusicSource.mute = val;
+	}
 	
 	/// <summary>
 	/// Plays the specified music clip.

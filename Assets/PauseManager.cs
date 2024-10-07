@@ -7,7 +7,9 @@ public class PauseManager : MonoBehaviour
     public GameObject PauseParent;
 
     private void Start() {
-        Resume();
+        Time.timeScale = 1;
+        PauseParent.SetActive(false);
+        Active = false;
     }
 
 
@@ -23,12 +25,15 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1;
         PauseParent.SetActive(false);
         Active = false;
+        SoundManager.Instance?.PlaySound("select");
     }
 
     public void Quit()
     {
         Time.timeScale = 1;
         SceneTransitionManager.Instance.LoadScene(Enums.Scenes.MainMenu);
+        SoundManager.Instance?.PlaySound("cancel");
+
     }
 
 

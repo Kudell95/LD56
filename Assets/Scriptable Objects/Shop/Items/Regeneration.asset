@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Regeneration
   Description: Heals a small amount after each fight
-  EffectDescription: Increases Health by 2%
+  EffectDescription: Heals by 5%
   UseRange: 0
-  Amount: 2
+  Amount: 5
   MinAmount: 0
   MaxAmount: 0
   ShopItemType: 1

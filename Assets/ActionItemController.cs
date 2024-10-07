@@ -63,7 +63,9 @@ public class ActionItemController : MonoBehaviour
     {
         if(m_Ability == null)
             return;
-            
+        
+        SoundManager.Instance?.PlaySound("select");
+
         Player.OnUseAbility.Invoke(m_Ability);
     }
 

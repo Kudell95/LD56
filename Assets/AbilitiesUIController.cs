@@ -22,22 +22,23 @@ public class AbilitiesUIController : MonoBehaviour
         if(ActionCtrler.Active && ActionCtrler.CurrentWindow == ActionController.WindowTypes.Ability)
             return;
         
-        //TODO: add way to change type. as we'll need to wait until it's closed. - Might not be needed, as 
-        // if(ActionCtrler)
+        SoundManager.Instance?.PlaySound("select");
+        
 
         ActionCtrler.PopulateAbilities();
         ActionCtrler.ShowPanel();
     }
 
-    public void OpenItemsPanel(){
+    public void OpenItemsPanel()
+    {
         if(GameManager.Instance.TurnManagerObject.CurrentTurnState != Enums.TurnStates.PlayerTurn)
             return;
 
         if(ActionCtrler.Active && ActionCtrler.CurrentWindow == ActionController.WindowTypes.Item)
             return;
         
-        //TODO: add way to change type. as we'll need to wait until it's closed. - Might not be needed, as 
-        // if(ActionCtrler)
+        SoundManager.Instance?.PlaySound("select");
+
 
         ActionCtrler.PopulateItems();
         ActionCtrler.ShowPanel();

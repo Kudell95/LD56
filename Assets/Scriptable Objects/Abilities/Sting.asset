@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sting
   m_EditorClassIdentifier: 
   Name: Sting
-  Description: Deals 6 Damage. 30% chance to deal +3 poison damage
+  Description: Sting the enemy. Chance to inflict poison damage
   EffectDescription: Deals 6 Damage. 40% chance to deal +3 poison damage
   UseRange: 0
   Amount: 6

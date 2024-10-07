@@ -6,12 +6,14 @@ public class MainMenuButton : MonoBehaviour
     
     private void Awake()
     {
-		SoundManager.Instance?.PlayMusic("MenuTheme", true);
+		SoundManager.Instance?.PlayMusic("bgm01", true);
 	}
+
+
 	
 	public void StartGame()
 	{
-		SoundManager.Instance?.PlaySound("ButtonClick");
+		SoundManager.Instance?.PlaySound("select");
 		SceneTransitionManager.Instance.LoadScene(GameSceneIndex);
 	}
 }
