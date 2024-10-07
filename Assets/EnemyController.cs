@@ -36,8 +36,6 @@ public class EnemyController : MonoBehaviour
 
     public GameObject HealthSliderParent;
     public TextMeshProUGUI HealthTextUGUI;
-
-
     
 
     private void Awake() {
@@ -47,7 +45,8 @@ public class EnemyController : MonoBehaviour
         
     }
 
-    private void Start() {
+    private void Start() 
+    {
         transform.DOScaleY(0,0f);
         OriginalPosition = transform.position;
         HealthSliderParent.GetComponent<CanvasGroup>().DOFade(0,0);
@@ -59,6 +58,7 @@ public class EnemyController : MonoBehaviour
             float perc = (float)CurrentHealth / (float)MaxHealth;
 
             HealthSlider.value = perc;
+            
 
             HealthTextUGUI.text = CurrentHealth.ToString();
     }
@@ -80,7 +80,16 @@ public class EnemyController : MonoBehaviour
                    
                    if(GameManager.LevelCount != 0 && (GameManager.LevelCount + 1) % 2 == 0 && !GameManager.Instance.LastLinearEnemy)
                     {
+                        if(GameManager.Instance.GameSpawnType == Enums.InsectSpawnTypes.Random)
+                        {
+                            if(GameManager.DifficultyModifier + GameManager.Config.DifficultyIncrement > GameManager.Config.MaxDifficultyModifier)
+                                GameManager.DifficultyModifier = GameManager.Config.MaxDifficultyModifier;
+                            else
+                                GameManager.DifficultyModifier += GameManager.Config.DifficultyIncrement;                            
+                        }
+
                         ShopController.Instance.Show();
+
                     }
                     else if(GameManager.Instance.GameSpawnType == Enums.InsectSpawnTypes.Sequential && GameManager.Instance.LastLinearEnemy)
                     {
@@ -101,6 +110,15 @@ public class EnemyController : MonoBehaviour
 
                 break;
             case Enums.TurnStates.OpponentTurn:
+
+                if(GameManager.SkipNextOpponentTurn){
+                    LeanTween.delayedCall(1.2f, ()=>{
+                                GameManager.SkipNextOpponentTurn = false;
+                                GameManager.EndTurn();
+                            });
+
+                    return;
+                }
                 //TODO: add turn logic.
                 LeanTween.delayedCall(0.5f,()=>{
                     PerformTurn();
@@ -151,6 +169,19 @@ public class EnemyController : MonoBehaviour
         DamageInformation dmginfo = new DamageInformation();
         dmginfo.StandardDamage = ability.value;
 
+        if(GameManager.DifficultyModifier > 0)
+            dmginfo.StandardDamage += Mathf.CeilToInt(dmginfo.StandardDamage * GameManager.DifficultyModifier); 
+
+
+        float percentageMiss = GameManager.Instance.PlayerObject.GetDodgePercentage();
+
+        dmginfo.StandardDamage = GameManager.Instance.PlayerObject.GetReducedDamage(dmginfo.StandardDamage);
+
+        if(UnityEngine.Random.Range(0f, 100f) <= percentageMiss)
+        {
+            dmginfo.StandardDamage = 0;
+        }
+
         return dmginfo;
 
     }
@@ -163,9 +194,14 @@ public class EnemyController : MonoBehaviour
     /// <param name="poisionDamage"></param>
     /// <param name="bonusDamage"></param>
     /// <returns></returns>
-    public bool TakeDamage(int standardDamage, int poisionDamage, int bonusDamage)
+    public bool TakeDamage(DamageInformation damageInformation)
     {
-        int totalDmg = standardDamage + poisionDamage + bonusDamage;
+        if(damageInformation == null)
+            return false;
+
+        int totalDmg = damageInformation.StandardDamage + damageInformation.PoisonDamage + damageInformation.BonusDamage;
+
+        Debug.Log("total damge dealt: " + totalDmg.ToString());
 
         if(totalDmg == 0)
 			AnimationHelper.OnHit(transform,EnemySpriteRenderer,Color.white);
@@ -173,6 +209,8 @@ public class EnemyController : MonoBehaviour
 			AnimationHelper.OnHit(transform,EnemySpriteRenderer);
 
        
+        if(damageInformation.SkipTurn)
+            GameManager.SkipNextOpponentTurn = true;
 
         if((CurrentHealth - totalDmg) <= 0)
         {
@@ -186,7 +224,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            HealthText.ShowDamage(totalDmg);
+            HealthText.ShowDamage(damageInformation);
             CurrentHealth -= totalDmg;
 
         }
@@ -211,15 +249,20 @@ public class EnemyController : MonoBehaviour
 
     public void SpawnNewEnemy(EnemySO enemy)
     {   
-
+        GameManager.SkipNextOpponentTurn = false;
         CurrentEnemy = enemy;
         MaxHealth = enemy.Health;
+        if(GameManager.DifficultyModifier > 0)
+        {
+            MaxHealth += Mathf.CeilToInt(MaxHealth * GameManager.DifficultyModifier);
+        }
+
         CurrentHealth = MaxHealth;
         //ensure scaled to 0 on z;
         transform.DOScaleY(0,0f).OnComplete(()=>{
             //update image
             EnemySpriteRenderer.sprite = enemy.CharacterSprite;
-
+            EnemySpriteRenderer.gameObject.GetComponent<Animator>().runtimeAnimatorController = enemy.CharacterAnimator; 
             HealthSliderParent.GetComponent<CanvasGroup>().DOFade(1,1f);
             transform.DOScale(m_OriginalScale, 1f).SetEase(Ease.OutBack).OnComplete(()=>{
                 

@@ -25,6 +25,13 @@ public class Enums : MonoBehaviour
 		Ability,
 		Item
 	}
+
+	public enum AttackAbilityNames{
+		None,
+		Slash,
+		Vice,
+		Sting
+	}
 	
 
 	public enum OpponentDifficulty

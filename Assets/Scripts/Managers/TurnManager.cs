@@ -66,7 +66,10 @@ public class TurnManager : MonoBehaviour
 			case Enums.TurnStates.PlayerTurn:
 				return "Player's Turn";
 			case Enums.TurnStates.OpponentTurn:
-				return "Opponent's Turn";
+                if(GameManager.SkipNextOpponentTurn)
+                    return "Opponent stunned, Skipping turn...";
+                else
+				    return "Opponent's Turn";
             case Enums.TurnStates.OpponentDeadTurn:
                 return "Bug destroyed. Hunting for next opponent...";
 			case Enums.TurnStates.OpponentSpawnTurn:

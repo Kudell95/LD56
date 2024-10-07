@@ -16,6 +16,9 @@ public class HealthModifierText : MonoBehaviour
 	public Color MissColour;
 	public Color BlockedColour;
 	public Color BuffedColour;
+
+	public Color PoisonDamageColour;
+
 	
 	
 	public GameObject HealParticlePrefab;
@@ -24,13 +27,48 @@ public class HealthModifierText : MonoBehaviour
 	private Vector3 _startPosition;
 	
 	public GameObject TextPrefab;
+
+	public GameObject PoisonTextPrefab;
+	public GameObject BonusDMGTextPrefab;
 	
 	private void Start()
 	{
 		_startPosition = transform.position;
 	}
 	
-	
+	public void ShowDamage(DamageInformation damage, int BlockedDamage = 0)
+	{
+		if(damage.StandardDamage == 0)
+		{
+			Show(MissColour, "Miss");
+		}
+		else if(BlockedDamage > 0 && damage.StandardDamage == 0)
+		{
+			Show(BlockedColour, "Blocked");
+		}
+		else
+		{
+			string text = $"-{damage.StandardDamage.ToString()}";
+			string bonusText = $"-{damage.BonusDamage.ToString()}";
+			string poisonText = $"-{damage.PoisonDamage.ToString()}";
+
+			Show(DamageColour, text);
+			
+			if(damage.BonusDamage > 0)
+				Show(BuffedColour, bonusText);
+			
+			if(damage.PoisonDamage > 0)
+				Show(PoisonDamageColour, poisonText);
+
+
+			var particle = Instantiate(DamageParticlePrefab,transform);
+			Destroy(particle,1.5f);
+			if(BlockedDamage > 0)
+				Show(BlockedColour,$"Blocked {BlockedDamage}");
+		}
+	}
+
+
 	public void ShowDamage(int damage, bool buffedDamage = false, int BlockedDamage = 0)
 	{
 		if(damage == 0)
@@ -80,6 +118,7 @@ public class HealthModifierText : MonoBehaviour
 			Hide(_text);
 		});
 	}
+	
 	
 	public void Hide(TMP_Text _text)
 	{

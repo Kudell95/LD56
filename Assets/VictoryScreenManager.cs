@@ -23,6 +23,7 @@ public class VictoryScreenManager : MonoBehaviour
     public void Continue(){
         GameManager.Instance.GameSpawnType = Enums.InsectSpawnTypes.Random;
         LeanTween.delayedCall(1f,()=>{
+            GameManager.Instance.PlayerObject.HealToMaxHealth();
             GameManager.EndTurn();
         });
         Hide();

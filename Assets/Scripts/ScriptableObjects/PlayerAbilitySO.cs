@@ -23,7 +23,8 @@ public class PlayerAbilitySO : ScriptableObject
 
     [Tooltip("Effect lasts for a single fight.")]
     public bool SingleFightEffect;
-
+    
+    public Enums.AttackAbilityNames AttackAbilityName;
 
     // public bool HasDuration;
 

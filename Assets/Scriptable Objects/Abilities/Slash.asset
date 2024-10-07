@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: Slash
   m_EditorClassIdentifier: 
   Name: Slash
-  Description: 'Deals a bunch of damage
-
-'
-  EffectDescription: 4-10 Damage
+  Description: A wild slash towards the enemy
+  EffectDescription: 'Deals 4-10 Damage. '
   UseRange: 1
   Amount: 0
-  MinAmount: 5
+  MinAmount: 4
   MaxAmount: 10
-  SingleTurnEffect: 0
+  SingleFightEffect: 0
+  AttackAbilityName: 1
+  ActionType: 0
   AbilityType: 0
   AbilityImage: {fileID: 8744866459378051926, guid: ce53019a5aa51954aae7b36e697e866c, type: 3}
+  ModifierImage: {fileID: 0}

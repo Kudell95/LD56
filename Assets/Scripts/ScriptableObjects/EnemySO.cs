@@ -21,6 +21,7 @@ public class EnemySO : ScriptableObject
     //TODO: add ability sets here, should be simple collection of attack SO - enum ability type with value amount and duration (optional).
 
     public Sprite CharacterSprite;
+    public RuntimeAnimatorController CharacterAnimator;
 
     public WeightedAbilityList AbilityList;
 

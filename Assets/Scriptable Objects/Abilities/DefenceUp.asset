@@ -12,15 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21c18ff57314d9a4d9a8cbb5f2b75270, type: 3}
   m_Name: DefenceUp
   m_EditorClassIdentifier: 
-  Name: Defence Up
-  Description: Temporarily increase your defence.
-  EffectDescription: Reduces damage taken by 15% for one fight.
+  Name: Defensive Boost
+  Description: Temporarily increases your Defense
+  EffectDescription: Reduces damage taken for one fight
   UseRange: 0
-  Amount: 15
+  Amount: 25
   MinAmount: 0
   MaxAmount: 0
   SingleFightEffect: 0
+  AttackAbilityName: 0
   ActionType: 1
   AbilityType: 2
-  AbilityImage: {fileID: -7691790676871763559, guid: 3782154ad465ddf4082ff507864bec1c, type: 3}
+  AbilityImage: {fileID: 5322135560299701425, guid: 52dd9918839483e4d9d90983fb615731, type: 3}
   ModifierImage: {fileID: 5322135560299701425, guid: 52dd9918839483e4d9d90983fb615731, type: 3}

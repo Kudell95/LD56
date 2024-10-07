@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 57fc24834fdc8a246ab2a93cb7cdc3a9, type: 3}
-  m_Name: Wasp 1
+  m_Name: Mosquito
   m_EditorClassIdentifier: 
-  Name: Wasp 2
+  Name: Mosquito
   description: An aggressive wasp. Careful, the stinger hurts!
   Health: 15
   Armour: 2
   Difficulty: 2
   Boss: 0
   CharacterSprite: {fileID: -7335345776834287784, guid: a56a606ecb4f14f409238ee291b16121, type: 3}
+  CharacterAnimator: {fileID: 4432037899000338271, guid: f0c214f5598796a4c8142180b273a249, type: 3}
   AbilityList:
     keyData:
     - {fileID: 11400000, guid: 09bf3521b2d2753418cafa933931a1e2, type: 2}

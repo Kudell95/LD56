@@ -50,6 +50,10 @@ public class GameManager : MonoBehaviour
 
     public static Action<int> OnLevelCounterChanged;
 
+    public static bool SkipNextOpponentTurn = true;
+
+    public static float DifficultyModifier = 0;
+
 
     public DeathScreen DeathUI;
 

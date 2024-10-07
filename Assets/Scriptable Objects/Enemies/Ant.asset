@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Worker Ant
   description: A worker ant, defending it's colony. Better up the ante
-  Health: 1
+  Health: 15
   Armour: 2
   Difficulty: 1
   Boss: 0
   CharacterSprite: {fileID: -8320102380781528936, guid: 9bcdc538e36e3304ea6316a186fb3306, type: 3}
+  CharacterAnimator: {fileID: -22749255273885882, guid: cf04e61b335164540a0214fb0e943ce2, type: 3}
   AbilityList:
     keyData:
     - {fileID: 11400000, guid: 09bf3521b2d2753418cafa933931a1e2, type: 2}

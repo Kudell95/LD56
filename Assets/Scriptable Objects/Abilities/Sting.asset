@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21c18ff57314d9a4d9a8cbb5f2b75270, type: 3}
-  m_Name: Stab
+  m_Name: Sting
   m_EditorClassIdentifier: 
-  Name: Vice
-  Description: Grab and crush the enemy. Chance to cripple enemy
-  EffectDescription: Deals 2-6 Damage.  40% chance to skip turn
-  UseRange: 1
+  Name: Sting
+  Description: Deals 6 Damage. 30% chance to deal +3 poison damage
+  EffectDescription: Deals 6 Damage. 40% chance to deal +3 poison damage
+  UseRange: 0
   Amount: 6
-  MinAmount: 2
-  MaxAmount: 6
+  MinAmount: 0
+  MaxAmount: 15
   SingleFightEffect: 0
-  AttackAbilityName: 2
+  AttackAbilityName: 3
   ActionType: 0
   AbilityType: 0
-  AbilityImage: {fileID: 2532967486699497467, guid: 4fb19f32ca6df1440a3e65ccb2d3a041, type: 3}
-  ModifierImage: {fileID: 0}
+  AbilityImage: {fileID: -8478529607285791697, guid: 7e9ceed9e81827c47a3c91516a4c6a64, type: 3}
+  ModifierImage: {fileID: -8478529607285791697, guid: 7e9ceed9e81827c47a3c91516a4c6a64, type: 3}

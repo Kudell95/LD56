@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
+using System.ComponentModel;
 
 public class Player : MonoBehaviour
 {
@@ -160,7 +161,7 @@ public class Player : MonoBehaviour
                 DamageInformation dmginfo = GetDamage(abilitySO);
                 
                 AttackAnimationController.Instance.PlayAttackAnimation(false, ()=>{
-                    if(!GameManager.Instance.EnemyObject.TakeDamage(dmginfo.StandardDamage, dmginfo.PoisonDamage, dmginfo.BonusDamage)){
+                    if(!GameManager.Instance.EnemyObject.TakeDamage(dmginfo)){
                         LeanTween.delayedCall(1.2f, ()=>{
                             onComplete?.Invoke();
                         });
@@ -210,24 +211,27 @@ public class Player : MonoBehaviour
             HealthText.ShowDamage(totalDmg);
             CurrentHealth -= totalDmg;
 
-
         }
     }
 
 
     public void UpdateHealthVisuals()
     {
-            float perc = (float)CurrentHealth / (float)CurrentMaxHealth;
+        float perc = (float)CurrentHealth / (float)CurrentMaxHealth;
 
-            HealthSlider.value = perc;
+        HealthSlider.value = perc;
 
-            tmpHealthText.text = CurrentHealth.ToString();
+        tmpHealthText.text = CurrentHealth.ToString();
     }
 
 
     public DamageInformation GetDamage(PlayerAbilitySO ability)
     {
         DamageInformation damage = new DamageInformation();
+        
+
+
+
         if(ability.UseRange)
         {
             damage.StandardDamage = UnityEngine.Random.Range(ability.MinAmount, ability.MaxAmount + 1);
@@ -237,9 +241,101 @@ public class Player : MonoBehaviour
             damage.StandardDamage = ability.Amount;
         }
 
-        //TODO: retrieve bonus damage here, apply to standard + add in poison damage.
+        damage.PoisonDamage = GetPoisonDamage(ability.AttackAbilityName);
+
+        damage.BonusDamage = GetBonusDamage(damage.StandardDamage);
+
+        HandleLifeSteal(ability.AttackAbilityName);
+
+        if(ability.AttackAbilityName == Enums.AttackAbilityNames.Vice)
+        {
+            float roll = UnityEngine.Random.Range(0f,100f);
+            Debug.Log(roll);
+            if(roll <= 40f)
+            {
+                damage.SkipTurn = true;
+            }
+        }
 
         return damage;
+    }
+
+
+    public int GetBonusDamage(int damage)
+    {
+        if(CurrentModifiers.Count(x=> x.ModifierType == Enums.ModifierTypes.AttackBoost) == 0)
+            return 0;
+
+        float totalPerc = 0;
+
+        foreach(Modifier mod in CurrentModifiers)
+        {
+            if(mod.ModifierType != Enums.ModifierTypes.AttackBoost)
+                continue;
+
+
+            totalPerc += (float)mod.Amount;
+        }  
+
+        float perc = totalPerc / 100;
+
+        int bonusDamage =  Mathf.CeilToInt(damage * perc);
+
+        return bonusDamage;
+    }
+
+
+
+    public float GetDodgePercentage()
+    {
+        if(CurrentModifiers.Count(x=> x.ModifierType == Enums.ModifierTypes.DodgePercentage) == 0)
+            return 5;
+
+
+        float perc = 0;
+
+        foreach(Modifier modifier in CurrentModifiers)
+        {
+            if(modifier.ModifierType != Enums.ModifierTypes.DodgePercentage)
+                continue;
+
+            perc += (float)modifier.Amount;
+        }
+
+        if(perc < 5)
+            perc += 5;
+
+        if(perc > 40f)
+            perc = 40f;
+
+        
+        return perc;
+
+    }
+
+
+    public int GetReducedDamage(int damage)
+    {
+        
+        if(CurrentModifiers.Count(x=> x.ModifierType == Enums.ModifierTypes.DodgePercentage) == 0)
+            return damage;
+
+
+        float perc = 0;
+
+        foreach(Modifier modifier in CurrentModifiers)
+        {
+            if(modifier.ModifierType != Enums.ModifierTypes.DodgePercentage)
+                continue;
+
+            perc += (float)modifier.Amount / 100;
+        }
+
+        if(perc > 0.5f)
+            perc = 0.5f;
+
+        damage -= Mathf.FloorToInt(damage * perc);
+        return damage <= 0 ? 0 : damage;
     }
 
 
@@ -257,7 +353,7 @@ public class Player : MonoBehaviour
             if(modifier.ModifierType != Enums.ModifierTypes.HealAfterFight)
                 continue;
 
-            totalPerc += modifier.Amount;
+            totalPerc += (float)modifier.Amount;
         }
 
 
@@ -266,7 +362,7 @@ public class Player : MonoBehaviour
 
         float perc = totalPerc/100;
 
-        int healAmount = Mathf.FloorToInt(CurrentMaxHealth  * perc);
+        int healAmount = Mathf.CeilToInt(CurrentMaxHealth  * perc);
          LeanTween.delayedCall(0.5f,()=>{            
             
             if(CurrentHealth + healAmount >= CurrentMaxHealth){
@@ -282,6 +378,209 @@ public class Player : MonoBehaviour
     }
 
 
+    public int GetPoisonDamage(Enums.AttackAbilityNames abilityName)
+    {
+        int dmg = 0;
+        if(abilityName == Enums.AttackAbilityNames.None)
+            return 0;
+
+
+        switch(abilityName)
+        {
+            case Enums.AttackAbilityNames.Slash:
+            {
+                if(CurrentModifiers.Count(x=> x.ModifierType == Enums.ModifierTypes.SlashPoisonDamage) == 0)
+                    return 0;
+                
+                foreach(Modifier modifier in CurrentModifiers)
+                {
+                    if(modifier.ModifierType != Enums.ModifierTypes.SlashPoisonDamage)
+                        continue;
+                    if(!modifier.UseRange)
+                        dmg += modifier.Amount;
+                    else
+                        dmg += UnityEngine.Random.Range(modifier.MinAmount, modifier.MaxAmount + 1);
+                }
+
+                return dmg;
+            }
+            case Enums.AttackAbilityNames.Sting:
+            {
+                if(CurrentModifiers.Count(x=> x.ModifierType == Enums.ModifierTypes.StingPoisonDamage) > 0)
+                {
+                
+                    foreach(Modifier modifier in CurrentModifiers)
+                    {
+                        if(modifier.ModifierType != Enums.ModifierTypes.StingPoisonDamage)
+                            continue;
+                        if(!modifier.UseRange)
+                            dmg += modifier.Amount;
+                        else
+                            dmg += UnityEngine.Random.Range(modifier.MinAmount, modifier.MaxAmount + 1);
+                    }
+                }
+
+                float roll = UnityEngine.Random.Range(0,100);
+                Debug.Log(roll);
+
+                if(roll <= 40f)
+                {
+                    dmg += 3;
+                }
+
+                return dmg;
+            }
+            case Enums.AttackAbilityNames.Vice:
+            {
+                if(CurrentModifiers.Count(x=> x.ModifierType == Enums.ModifierTypes.VicePoisonDamage) == 0)
+                    return 0;
+                
+                foreach(Modifier modifier in CurrentModifiers)
+                {
+                    if(modifier.ModifierType != Enums.ModifierTypes.VicePoisonDamage)
+                        continue;
+                    if(!modifier.UseRange)
+                        dmg += modifier.Amount;
+                    else
+                        dmg += UnityEngine.Random.Range(modifier.MinAmount, modifier.MaxAmount + 1);
+                }
+
+                return dmg;
+            }
+
+
+
+        }
+
+
+        return dmg;
+    }
+
+    public void HandleLifeSteal(Enums.AttackAbilityNames abilityName)
+    {
+        if(abilityName == Enums.AttackAbilityNames.None)
+            return;
+
+        switch(abilityName)
+        {
+            case Enums.AttackAbilityNames.Slash:
+            {
+                if(CurrentModifiers.Count(x=> x.ModifierType == Enums.ModifierTypes.SlashLifeSteal) == 0)
+                    return;
+
+                if(CurrentHealth >= CurrentMaxHealth)
+                    return;
+
+                float totalPerc = 0;
+                foreach(Modifier modifier in CurrentModifiers)
+                {
+                    if(modifier.ModifierType != Enums.ModifierTypes.SlashLifeSteal)
+                        continue;
+
+                    totalPerc += modifier.Amount;
+                }
+
+
+                if(totalPerc == 0)
+                    return;
+
+                float perc = totalPerc/100;
+
+                int healAmount = Mathf.FloorToInt(CurrentMaxHealth  * perc);
+                LeanTween.delayedCall(0.5f,()=>{            
+                    
+                    if(CurrentHealth + healAmount >= CurrentMaxHealth){
+                        HealthText.ShowHeal(CurrentMaxHealth - CurrentHealth);  
+                        CurrentHealth = CurrentMaxHealth;
+                    }
+                    else
+                    {
+                        CurrentHealth += healAmount;
+                        HealthText.ShowHeal(healAmount);  
+                    }      
+                });
+                break;
+            }
+            case Enums.AttackAbilityNames.Vice:
+            {
+                if(CurrentModifiers.Count(x=> x.ModifierType == Enums.ModifierTypes.ViceLifeSteal) == 0)
+                    return;
+
+                if(CurrentHealth >= CurrentMaxHealth)
+                    return;
+
+                float totalPerc = 0;
+                foreach(Modifier modifier in CurrentModifiers)
+                {
+                    if(modifier.ModifierType != Enums.ModifierTypes.ViceLifeSteal)
+                        continue;
+
+                    totalPerc += modifier.Amount;
+                }
+
+
+                if(totalPerc == 0)
+                    return;
+
+                float perc = totalPerc/100;
+
+                int healAmount = Mathf.FloorToInt(CurrentMaxHealth  * perc);
+                LeanTween.delayedCall(0.5f,()=>{            
+                    
+                    if(CurrentHealth + healAmount >= CurrentMaxHealth){
+                        HealthText.ShowHeal(CurrentMaxHealth - CurrentHealth);  
+                        CurrentHealth = CurrentMaxHealth;
+                    }
+                    else
+                    {
+                        CurrentHealth += healAmount;
+                        HealthText.ShowHeal(healAmount);  
+                    }      
+                });
+                break;
+            }
+            case Enums.AttackAbilityNames.Sting:
+            {
+                if(CurrentModifiers.Count(x=> x.ModifierType == Enums.ModifierTypes.StingLifeSteal) == 0)
+                    return;
+
+                if(CurrentHealth >= CurrentMaxHealth)
+                    return;
+
+                float totalPerc = 0;
+                foreach(Modifier modifier in CurrentModifiers)
+                {
+                    if(modifier.ModifierType != Enums.ModifierTypes.StingLifeSteal)
+                        continue;
+
+                    totalPerc += modifier.Amount;
+                }
+
+
+                if(totalPerc == 0)
+                    return;
+
+                float perc = totalPerc/100;
+
+                int healAmount = Mathf.FloorToInt(CurrentMaxHealth  * perc);
+                LeanTween.delayedCall(0.5f,()=>{            
+                    
+                    if(CurrentHealth + healAmount >= CurrentMaxHealth){
+                        HealthText.ShowHeal(CurrentMaxHealth - CurrentHealth);  
+                        CurrentHealth = CurrentMaxHealth;
+                    }
+                    else
+                    {
+                        CurrentHealth += healAmount;
+                        HealthText.ShowHeal(healAmount);  
+                    }      
+                });
+                break;
+            }
+        }
+    }
+
+
     private void OnTurnStarted(Enums.TurnStates turnType)
     {
         if(turnType == Enums.TurnStates.OpponentDeadTurn)
@@ -290,7 +589,7 @@ public class Player : MonoBehaviour
             HandleHealAfterFight();
 
             return;
-        }
+        } 
 
 
         if(turnType != Enums.TurnStates.InitialTurn && turnType != Enums.TurnStates.PlayerTurn)
@@ -311,8 +610,24 @@ public class Player : MonoBehaviour
 
     }
 
+    public void HealToMaxHealth(){
+         HealthText.ShowHeal(CurrentMaxHealth - CurrentHealth);  
+         CurrentHealth = CurrentMaxHealth;
+    }
 
 
+    public void HandleMaxLifeModifier(Modifier modifier)
+    {
+        float perc = (float)modifier.Amount / 100;
+
+        int health = 0;
+
+        health = Mathf.FloorToInt(CurrentMaxHealth * perc);
+
+        CurrentMaxHealth += health;
+
+        UpdateHealthVisuals();
+    }
 
 
 
@@ -341,6 +656,7 @@ public class Player : MonoBehaviour
             transform.DOScaleY(startingScaleY,1f).SetEase(Ease.OutBack).OnComplete(oncomplete);
         });
     }
+
 
 
 
@@ -410,8 +726,17 @@ public class Player : MonoBehaviour
                 
             break;
             case Enums.ShopItemType.Modifier:
-                AddModifier(BuildModifier(item));
-            break;
+            {
+                Modifier modifier = BuildModifier(item); 
+                AddModifier(modifier);
+
+                if(modifier.ModifierType == Enums.ModifierTypes.MaxHealth)
+                {
+                    HandleMaxLifeModifier(modifier);
+                }
+                
+                break;
+            }
         }
     }
 
@@ -441,4 +766,5 @@ public class DamageInformation{
     public int StandardDamage;
     public int PoisonDamage;
     public int BonusDamage;
+    public bool SkipTurn;
 }

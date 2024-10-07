@@ -14,11 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Wasp
   description: An aggressive wasp. Careful, the stinger hurts!
-  Health: 1
+  Health: 15
   Armour: 2
   Difficulty: 2
   Boss: 0
   CharacterSprite: {fileID: 5742915519180568612, guid: c6564027245659848870be9d653fab71, type: 3}
+  CharacterAnimator: {fileID: -2520555133153097929, guid: 9ea961cc52ea86a4caed1d0181371957, type: 3}
   AbilityList:
     keyData:
     - {fileID: 11400000, guid: 09bf3521b2d2753418cafa933931a1e2, type: 2}
