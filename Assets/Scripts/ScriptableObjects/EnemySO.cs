@@ -12,12 +12,6 @@ public class EnemySO : ScriptableObject
 
     public int Health;
 
-    public int Armour;
-
-    public Enums.OpponentDifficulty Difficulty;
-
-    public bool Boss;
-
     //TODO: add ability sets here, should be simple collection of attack SO - enum ability type with value amount and duration (optional).
 
     public Sprite CharacterSprite;
