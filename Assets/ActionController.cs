@@ -20,6 +20,8 @@ public class ActionController : MonoBehaviour
 
     public TextMeshProUGUI PanelTitleText;
 
+    public bool Locked = false;
+
 
     public enum WindowTypes {
         Ability,
@@ -32,6 +34,16 @@ public class ActionController : MonoBehaviour
         ForceClosed();
 
         Player.OnUseAbility += OnPlayerAbilityUsed;
+
+        TurnManager.OnTurnStart += OnTurnStart;
+    }
+
+    public void OnTurnStart(Enums.TurnStates turn)
+    {
+        if(turn == Enums.TurnStates.PlayerTurn)
+            Locked = false;
+        else
+            Locked = true;
     }
 
     public void ClearActionItems()
@@ -77,12 +89,14 @@ public class ActionController : MonoBehaviour
     public void OnPlayerAbilityUsed(PlayerAbilitySO ability)
     {
         ForceClosed();
-        //TODO: maybe set buttons to disabled here?
+        if(CurrentWindow == WindowTypes.Ability)
+            Locked = true;
+
     }
 
     public void ShowPanel()
     {
-        if(fading)
+        if(fading || Locked)
             return;
         // Panel.SetActive(true);
 
@@ -95,6 +109,11 @@ public class ActionController : MonoBehaviour
                 fading = false;
             });
         });
+    }
+
+    public void HideFromButton(){
+        SoundManager.Instance?.PlaySound("cancel");
+        HidePanel();
     }
 
     public void HidePanel()

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Beetle
   description: A hardened Beetle. Sturdy as a tank
-  Health: 20
+  Health: 22
   CharacterSprite: {fileID: -170131892086433782, guid: 612aa388f711ca241849a98f4b4e326a, type: 3}
   CharacterAnimator: {fileID: 3765556890983540265, guid: 26bec48bce46b2d438d7d664970eee00, type: 3}
   AbilityList:

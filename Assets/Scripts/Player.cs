@@ -156,11 +156,12 @@ public class Player : MonoBehaviour
 
     public void PerformAttack(PlayerAbilitySO abilitySO, TweenCallback onComplete)
     {
+        SoundManager.Instance?.PlaySound("attack");
         LeanTween.delayedCall(0.5f,()=>{
             transform.DOMove(PlayerAttackAnimationPoint.position,0.1f).SetEase(Ease.OutElastic).OnComplete(()=>{
                 DamageInformation dmginfo = GetDamage(abilitySO);
                 
-                AttackAnimationController.Instance.PlayAttackAnimation(false, ()=>{
+                AttackAnimationController.Instance.PlayAttackAnimation(abilitySO.AttackAbilityName,false, ()=>{
                     if(!GameManager.Instance.EnemyObject.TakeDamage(dmginfo)){
                         LeanTween.delayedCall(1.2f, ()=>{
                             onComplete?.Invoke();
@@ -212,6 +213,8 @@ public class Player : MonoBehaviour
             CurrentHealth -= totalDmg;
 
         }
+         SoundManager.Instance?.PlaySound("take damage");
+
     }
 
 
@@ -228,9 +231,6 @@ public class Player : MonoBehaviour
     public DamageInformation GetDamage(PlayerAbilitySO ability)
     {
         DamageInformation damage = new DamageInformation();
-        
-
-
 
         if(ability.UseRange)
         {
@@ -279,7 +279,13 @@ public class Player : MonoBehaviour
 
         float perc = totalPerc / 100;
 
+        Debug.Log("Bonus Dmg: " + perc);
+
         int bonusDamage =  Mathf.CeilToInt(damage * perc);
+
+        Debug.Log("Bonus Dmg: " + bonusDamage);
+
+
 
         return bonusDamage;
     }
@@ -289,7 +295,7 @@ public class Player : MonoBehaviour
     public float GetDodgePercentage()
     {
         if(CurrentModifiers.Count(x=> x.ModifierType == Enums.ModifierTypes.DodgePercentage) == 0)
-            return 5;
+            return 10;
 
 
         float perc = 0;
@@ -302,11 +308,10 @@ public class Player : MonoBehaviour
             perc += (float)modifier.Amount;
         }
 
-        if(perc < 5)
-            perc += 5;
+        perc += 10;
 
-        if(perc > 40f)
-            perc = 40f;
+        if(perc > 50f)
+            perc = 50f;
 
         
         return perc;
@@ -317,7 +322,7 @@ public class Player : MonoBehaviour
     public int GetReducedDamage(int damage)
     {
         
-        if(CurrentModifiers.Count(x=> x.ModifierType == Enums.ModifierTypes.DodgePercentage) == 0)
+        if(CurrentModifiers.Count(x=> x.ModifierType == Enums.ModifierTypes.DefenceBoost) == 0)
             return damage;
 
 
@@ -325,7 +330,7 @@ public class Player : MonoBehaviour
 
         foreach(Modifier modifier in CurrentModifiers)
         {
-            if(modifier.ModifierType != Enums.ModifierTypes.DodgePercentage)
+            if(modifier.ModifierType != Enums.ModifierTypes.DefenceBoost)
                 continue;
 
             perc += (float)modifier.Amount / 100;
@@ -334,7 +339,12 @@ public class Player : MonoBehaviour
         if(perc > 0.5f)
             perc = 0.5f;
 
+        Debug.Log("Defence Reduction %: " + perc);
+
         damage -= Mathf.FloorToInt(damage * perc);
+
+        Debug.Log("Reduced DMG: " + damage);
+
         return damage <= 0 ? 0 : damage;
     }
 
@@ -688,9 +698,9 @@ public class Player : MonoBehaviour
     }
 
     private void Die(){
-        SoundManager.Instance.PlaySound("EnemyDeath");
 		// TurnBasedManager.Instance.StartTurn(Enums.TurnStates.PlayerDeadTurn,false,false);
 		GameManager.StartTurn(Enums.TurnStates.PlayerDeadTurn, false);
+        SoundManager.Instance?.PlaySound("player death");
 
 		transform.DOShakeScale(1f).OnComplete(()=>
 		{
@@ -707,7 +717,7 @@ public class Player : MonoBehaviour
     public void UseShopItem(ShopItemSO item)
     {
         //add modifier OR add 
-
+        SoundManager.Instance?.PlaySound("use item");
         switch(item.ShopItemType)
         {
             case Enums.ShopItemType.Item:
@@ -729,7 +739,7 @@ public class Player : MonoBehaviour
             {
                 Modifier modifier = BuildModifier(item); 
                 AddModifier(modifier);
-
+                SoundManager.Instance?.PlaySound("buff");
                 if(modifier.ModifierType == Enums.ModifierTypes.MaxHealth)
                 {
                     HandleMaxLifeModifier(modifier);

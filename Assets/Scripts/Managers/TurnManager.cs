@@ -71,7 +71,7 @@ public class TurnManager : MonoBehaviour
                 else
 				    return "Opponent's Turn";
             case Enums.TurnStates.OpponentDeadTurn:
-                return "Bug destroyed. Hunting for next opponent...";
+                return "Bug destroyed. Hunting for next meal...";
 			case Enums.TurnStates.OpponentSpawnTurn:
 				return "Prey found!";
 			default:

@@ -77,17 +77,17 @@ public class EnemyController : MonoBehaviour
                 }   
                     return;
             case Enums.TurnStates.OpponentDeadTurn:
-                   
-                   if(GameManager.LevelCount != 0 && (GameManager.LevelCount + 1) % 2 == 0 && !GameManager.Instance.LastLinearEnemy)
+                   if(GameManager.Instance.GameSpawnType == Enums.InsectSpawnTypes.Random && ((GameManager.LevelCount + 1) - GameManager.Instance.LinearEnemyCount) % 4 == 0)
                     {
-                        if(GameManager.Instance.GameSpawnType == Enums.InsectSpawnTypes.Random)
-                        {
-                            if(GameManager.DifficultyModifier + GameManager.Config.DifficultyIncrement > GameManager.Config.MaxDifficultyModifier)
-                                GameManager.DifficultyModifier = GameManager.Config.MaxDifficultyModifier;
-                            else
-                                GameManager.DifficultyModifier += GameManager.Config.DifficultyIncrement;                            
-                        }
+                        if(GameManager.DifficultyModifier + GameManager.Config.DifficultyIncrement > GameManager.Config.MaxDifficultyModifier)
+                            GameManager.DifficultyModifier = GameManager.Config.MaxDifficultyModifier;
+                        else
+                            GameManager.DifficultyModifier += GameManager.Config.DifficultyIncrement;                            
+                    }
 
+
+                   if(GameManager.LevelCount != 0 && (GameManager.LevelCount + 1) % 2 == 0 && !GameManager.Instance.LastLinearEnemy)
+                    {   
                         ShopController.Instance.Show();
 
                     }
@@ -139,11 +139,13 @@ public class EnemyController : MonoBehaviour
         switch(ability.AbilityCategory)
         {
             case Enums.OpponentAbilityCategory.Attack:
+                SoundManager.Instance?.PlaySound("attack");
+
                 LeanTween.delayedCall(0.5f,()=>{
                     transform.DOMove(EnemyAttackAnimationPoint.position,0.1f).SetEase(Ease.OutElastic).OnComplete(()=>{
                         DamageInformation dmginfo = GetDamage(ability);
                         
-                        AttackAnimationController.Instance.PlayAttackAnimation(true, ()=>{
+                        AttackAnimationController.Instance.PlayAttackAnimation(Enums.AttackAbilityNames.None,true, ()=>{
                             GameManager.Instance.PlayerObject.TakeDamage(dmginfo.StandardDamage, dmginfo.PoisonDamage, dmginfo.BonusDamage);
                         });
                         
@@ -200,6 +202,8 @@ public class EnemyController : MonoBehaviour
             return false;
 
         int totalDmg = damageInformation.StandardDamage + damageInformation.PoisonDamage + damageInformation.BonusDamage;
+
+        SoundManager.Instance?.PlaySound("take damage");
 
         Debug.Log("total damge dealt: " + totalDmg.ToString());
 
@@ -288,7 +292,8 @@ public class EnemyController : MonoBehaviour
 
     public void Die()
     {
-        SoundManager.Instance.PlaySound("EnemyDeath");
+        SoundManager.Instance?.PlaySound("enemy death");
+
 		// TurnBasedManager.Instance.StartTurn(Enums.TurnStates.PlayerDeadTurn,false,false);
         
         HealthSliderParent.GetComponent<CanvasGroup>().DOFade(0,1f);

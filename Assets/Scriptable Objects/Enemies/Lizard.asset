@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Lizard
   description: An armoured Cricket. Can take a hit
-  Health: 25
+  Health: 30
   CharacterSprite: {fileID: -6383312658857005041, guid: 7df5be5374a0816409ad420e647d53f8, type: 3}
   CharacterAnimator: {fileID: 4340317959603307653, guid: ae351693acfad7a4fb81ea144514767d, type: 3}
   AbilityList:

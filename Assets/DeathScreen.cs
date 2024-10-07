@@ -16,5 +16,7 @@ public class DeathScreen : MonoBehaviour
     public void Quit(){
         Time.timeScale = 1;
         SceneTransitionManager.Instance.LoadScene(Enums.Scenes.MainMenu);
+        SoundManager.Instance?.PlaySound("select");
+
     }
 }

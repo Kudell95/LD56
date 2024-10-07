@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: Main Config
   m_EditorClassIdentifier: 
   StartingPlayerHealth: 50
+  MaxDodgePercentage: 0.3
+  DifficultyIncrement: 0.4
+  MaxDifficultyModifier: 6

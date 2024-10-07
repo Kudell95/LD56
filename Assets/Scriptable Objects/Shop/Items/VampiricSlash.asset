@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Vampiric Slash
   Description: Slash attack now steals health from the enemy
-  EffectDescription: Heals 5% of your Max Health
+  EffectDescription: Heals 2% of your Max Health
   UseRange: 0
-  Amount: 5
+  Amount: 2
   MinAmount: 0
   MaxAmount: 0
   ShopItemType: 1

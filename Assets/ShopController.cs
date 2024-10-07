@@ -73,10 +73,10 @@ public class ShopController : MonoBehaviour
         card.GetComponent<ShopItemController>().Build(firstItem);
 
         ShopItemSO item = ItemList.RandomElementByWeight(x=> x.Value).Key.Clone();
-        if(item == firstItem)
+        if(item.Name == firstItem.Name)
         {
             int i = 0;
-            while(item == firstItem)
+            while(item.Name == firstItem.Name)
             {
                 item = ItemList.RandomElementByWeight(x=> x.Value).Key.Clone();
 
@@ -105,6 +105,7 @@ public class ShopController : MonoBehaviour
 
     public void UseShopItem(ShopItemSO item)
     {
+        SoundManager.Instance?.PlaySound("select");
         if(item.SingleUse && ItemList.ContainsKey(item))
         {
             ItemList.Remove(item);

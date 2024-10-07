@@ -63,6 +63,10 @@ public class GameManager : MonoBehaviour
         return LevelCount == LinearEnemySequence.Count-1;
     }}
 
+    public int LinearEnemyCount {get{
+        return LinearEnemySequence.Count;
+    }}
+
     public bool IsPlayerTurn {get{
         return TurnManagerObject.CurrentTurnState == Enums.TurnStates.PlayerTurn;
     }}
@@ -89,6 +93,10 @@ public class GameManager : MonoBehaviour
         TurnManagerObject.StartTurn(Enums.TurnStates.InitialTurn, false);
         TurnManager.OnTurnStart += OnTurnStart;
         LevelCount = 0;
+
+        SoundManager.Instance?.PlayMusic("bgm03", true);
+       
+
     }
 
     public void OnTurnStart(Enums.TurnStates turn)
