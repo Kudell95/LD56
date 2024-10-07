@@ -77,20 +77,25 @@ public class EnemyController : MonoBehaviour
                 }   
                     return;
             case Enums.TurnStates.OpponentDeadTurn:
-                    //Todo: check if sequential and current enemy is boss, if so, skip normal death and display victory screen and bug out (pun fully intended).
-                    //otherwise if sequential and !boss OR random, play death animation and trigger shop screen.
-
-                    if(GameManager.Instance.GameSpawnType == Enums.InsectSpawnTypes.Sequential && GameManager.Instance.LastLinearEnemy)
+                   
+                   if(GameManager.LevelCount != 0 && (GameManager.LevelCount + 1) % 2 == 0 && !GameManager.Instance.LastLinearEnemy)
+                    {
+                        ShopController.Instance.Show();
+                    }
+                    else if(GameManager.Instance.GameSpawnType == Enums.InsectSpawnTypes.Sequential && GameManager.Instance.LastLinearEnemy)
                     {
                         GameManager.Instance.GameSpawnType = Enums.InsectSpawnTypes.Random;
 
-                        //todo: show screen instead.
+                        GameManager.Instance.VictoryScreen.Show();
+                    }
+                    else
+                    {                        
+                            LeanTween.delayedCall(2.2f, ()=>{
+                                GameManager.EndTurn();
+                            });
                     }
 
                     
-                    LeanTween.delayedCall(2.2f, ()=>{
-                        GameManager.EndTurn();
-                    });
 
 
 
@@ -248,7 +253,8 @@ public class EnemyController : MonoBehaviour
 		{
 			transform.DOScaleX(0,0.2f).OnComplete(()=>
 			{
-				GameManager.StartTurn(Enums.TurnStates.OpponentDeadTurn);
+                bool notify = (GameManager.LevelCount == 0 || (GameManager.LevelCount + 1) % 2 != 0) && !GameManager.Instance.LastLinearEnemy;
+				GameManager.StartTurn(Enums.TurnStates.OpponentDeadTurn, notify);
 			});
 		});		
     }

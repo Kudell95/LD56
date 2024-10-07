@@ -107,10 +107,7 @@ public class SceneTransitionManager : MonoBehaviour
 				});
 			};
 		});		
-	}
-	
-
-	
+	}	
 	
 
 	public void FadeToEvent(float duration, Action OnComplete)

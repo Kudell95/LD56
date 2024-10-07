@@ -27,7 +27,15 @@ public class GameManager : MonoBehaviour
 
     public int HealthCount, DefenseBuffCount, AttackBuffCount;
 
-    public static int LevelCount;
+
+    private static int m_LevelCount;
+    public static int LevelCount {
+        get{ return m_LevelCount;}
+        set{
+            OnLevelCounterChanged?.Invoke(value);
+            m_LevelCount = value;
+        }
+    }
 
     public Enums.InsectSpawnTypes GameSpawnType = Enums.InsectSpawnTypes.Random;
 
@@ -35,6 +43,12 @@ public class GameManager : MonoBehaviour
 
     public Sprite DefaultModifierIcon;
     public static bool ItemUsedThisRound = false;
+
+    public  VictoryScreenManager VictoryScreen;
+
+    public static bool BlockPausing = false;
+
+    public static Action<int> OnLevelCounterChanged;
 
 
     public DeathScreen DeathUI;
@@ -70,6 +84,7 @@ public class GameManager : MonoBehaviour
         AttackBuffCount = 1;  
         TurnManagerObject.StartTurn(Enums.TurnStates.InitialTurn, false);
         TurnManager.OnTurnStart += OnTurnStart;
+        LevelCount = 0;
     }
 
     public void OnTurnStart(Enums.TurnStates turn)
@@ -77,6 +92,9 @@ public class GameManager : MonoBehaviour
         if(turn == Enums.TurnStates.OpponentDeadTurn)
             LevelCount++;
     }
+
+
+    
 
     //for Linear playthrough
     public EnemySO GetNextEnemy()

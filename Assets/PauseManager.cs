@@ -38,8 +38,12 @@ public class PauseManager : MonoBehaviour
             if(Active)
                 Resume();
             else
-                Pause();
+                if(!GameManager.BlockPausing)
+                    Pause();
         }
+
+        if(Active && GameManager.BlockPausing)
+            Resume();
     }
 
 }

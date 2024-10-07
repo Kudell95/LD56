@@ -39,9 +39,22 @@ public class Enums : MonoBehaviour
 	{
 		DefenceBoost,
 		AttackBoost,
+		Heal,
 		SlashPoisonDamage,
-		ChompPoisonDamage,
-		SpikePoisonDamage,		
+		VicePoisonDamage,
+		StingPoisonDamage,
+		SlashLifeSteal,
+		ViceLifeSteal,
+		StingLifeSteal,
+		DodgePercentage,
+		MaxHealth,
+		HealAfterFight
+		
+	}
+
+	public enum ShopItemType{
+		Item,
+		Modifier
 	}
 
 	public enum OpponentAbilityType // WIP

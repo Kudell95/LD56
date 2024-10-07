@@ -10,6 +10,7 @@ public class DeathScreen : MonoBehaviour
     public void Show(){
         Time.timeScale = 0;
         DeathScreenParent.SetActive(true);
+        GameManager.BlockPausing = true;
     }
 
     public void Quit(){

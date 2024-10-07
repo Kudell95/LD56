@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05af5af15b323da40a76b9f291281eab, type: 3}
+  m_Name: Health Potion
+  m_EditorClassIdentifier: 
+  Name: Health Potion
+  Description: 'Drink to recover some Health
+
+    Heals 50% of Max Health on use'
+  UseRange: 0
+  Amount: 1
+  MinAmount: 0
+  MaxAmount: 0
+  ShopItemType: 0
+  ModifierType: 2
+  DisplayImage: {fileID: 1927300622042730720, guid: fef4d5652720a09479472bb899f639cc, type: 3}
+  ModifierImage: {fileID: 1927300622042730720, guid: fef4d5652720a09479472bb899f639cc, type: 3}
+  SingleUse: 0

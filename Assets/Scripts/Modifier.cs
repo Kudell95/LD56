@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Modifier : MonoBehaviour
+public class Modifier
 {
     public string Name;
     public string Description;
@@ -13,6 +13,10 @@ public class Modifier : MonoBehaviour
     public bool TemporaryModifier; 
 
     public int Amount;
+
+    public bool UseRange;
+    public int MinAmount;
+    public int MaxAmount;
 
     public Enums.ModifierTypes ModifierType;
 

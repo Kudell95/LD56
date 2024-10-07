@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 
 public class Player : MonoBehaviour
 {
@@ -242,7 +243,43 @@ public class Player : MonoBehaviour
     }
 
 
+    public void HandleHealAfterFight()
+    {
+        if(CurrentModifiers.Count(x=> x.ModifierType == Enums.ModifierTypes.HealAfterFight) == 0)
+            return;
 
+        if(CurrentHealth >= CurrentMaxHealth)
+            return;
+
+        float totalPerc = 0;
+        foreach(Modifier modifier in CurrentModifiers)
+        {
+            if(modifier.ModifierType != Enums.ModifierTypes.HealAfterFight)
+                continue;
+
+            totalPerc += modifier.Amount;
+        }
+
+
+        if(totalPerc == 0)
+            return;
+
+        float perc = totalPerc/100;
+
+        int healAmount = Mathf.FloorToInt(CurrentMaxHealth  * perc);
+         LeanTween.delayedCall(0.5f,()=>{            
+            
+            if(CurrentHealth + healAmount >= CurrentMaxHealth){
+                HealthText.ShowHeal(CurrentMaxHealth - CurrentHealth);  
+                CurrentHealth = CurrentMaxHealth;
+            }
+            else
+            {
+                CurrentHealth += healAmount;
+                HealthText.ShowHeal(healAmount);  
+            }      
+        });
+    }
 
 
     private void OnTurnStarted(Enums.TurnStates turnType)
@@ -250,6 +287,7 @@ public class Player : MonoBehaviour
         if(turnType == Enums.TurnStates.OpponentDeadTurn)
         {
             RemoveTemporaryModifiers();
+            HandleHealAfterFight();
 
             return;
         }
@@ -272,6 +310,11 @@ public class Player : MonoBehaviour
 
 
     }
+
+
+
+
+
 
     private void OnTurnEnded(Enums.TurnStates turnType)
     {
@@ -342,7 +385,52 @@ public class Player : MonoBehaviour
 			});
 		});		
     }
+
+
     
+    public void UseShopItem(ShopItemSO item)
+    {
+        //add modifier OR add 
+
+        switch(item.ShopItemType)
+        {
+            case Enums.ShopItemType.Item:
+                switch(item.ModifierType)
+                {
+                    case Enums.ModifierTypes.Heal:
+                        GameManager.Instance.HealthCount++;
+                        break;
+                    case Enums.ModifierTypes.AttackBoost:
+                        GameManager.Instance.AttackBuffCount++;
+                        break;
+                    case Enums.ModifierTypes.DefenceBoost:
+                        GameManager.Instance.DefenseBuffCount++;
+                        break;
+                }
+                
+            break;
+            case Enums.ShopItemType.Modifier:
+                AddModifier(BuildModifier(item));
+            break;
+        }
+    }
+
+
+    public Modifier BuildModifier(ShopItemSO shopItem)
+    {
+        Modifier modifier = new Modifier();
+        modifier.Amount = shopItem.Amount;
+        modifier.Description = shopItem.Description;
+        modifier.Name = shopItem.Name;
+        modifier.EffectDescription = shopItem.EffectDescription;
+        modifier.UseRange = shopItem.UseRange;
+        modifier.MinAmount = shopItem.MinAmount;
+        modifier.MaxAmount = shopItem.MaxAmount;
+        modifier.ModifierType = shopItem.ModifierType;
+        modifier.ModifierIcon = shopItem.ModifierImage;
+
+        return modifier;
+    }
 
 
 
